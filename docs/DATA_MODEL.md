@@ -119,7 +119,7 @@ Golden and gotcha text is hand-written in `scenario.py` and is never roughened, 
 | E3 | WO-2026-0116 | 08-12 20:00 → 08-14 20:00 | Ravi (T01) | bearing + HT-3 | RESOLVED |
 | **LIVE** | — | **08-31 00:00 →** (ongoing) | — | — | demo moment |
 
-- **The clear note:** written in exactly one handover note, `HN-0160` (07-22, shift B, by Ravi) and buried in chatter: *"…Fix = replace bearing AND switch grease from LG-2 to HT-3 high-temp grade… Only bearing change does NOT hold…"*.
+- **The clear note:** written in exactly one handover note, `HN-0163` (07-22, shift B, by Ravi) and buried in chatter: *"…Fix = replace bearing AND switch grease from LG-2 to HT-3 high-temp grade… Only bearing change does NOT hold…"*.
 - **Fragments** appear in 4 other notes, e.g. *"Ravi bol raha tha lube change karo warna phir se aayega"*, and in the work-order notes.
 - **The J1 note says "trial run ok".** Its `RECURRED` outcome can only be derived by linking it to E2, which is a same-asset, same-failure-mode recurrence within 14 days. That link is what the knowledge graph is for.
 - **Decoys (final day):**
@@ -146,7 +146,7 @@ Generated alongside the data (never edit it by hand). It contains:
   - onset and signature (+12% vibration at end of data, 0.5 %/h slope, 12 h temperature lag)
   - the 4 historical P3 precursor windows
   - failure window (analog ≈ 24 h, linear extrapolation ≈ 46 h)
-  - expected top-3 retrieval (`HN-0160`, `WO-2026-0079`, `WO-2026-0067`) and the hit@3 rule
+  - expected top-3 retrieval (`HN-0163`, `WO-2026-0079`, `WO-2026-0067`) and the hit@3 rule
   - recommended technician T01 and required parts
 - `decoys`: both with `should_match_p3_bearing = false`.
 - `expected_oee`:
