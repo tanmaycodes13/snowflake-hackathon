@@ -1,0 +1,3 @@
+-- Plant Brain :: 00_setup.sql
+-- Phase 3 — database PLANT_BRAIN (schemas RAW, CORE, BRAIN, APP), warehouse PB_WH (XS, AUTO_SUSPEND=60), role PB_ROLE, stage RAW.LANDING.
+-- STATUS: stub — implemented in its phase. See TODO.md.

@@ -1,0 +1,3 @@
+-- Plant Brain :: 02_load.sql
+-- Phase 3 — PUT files to @RAW.LANDING, then COPY INTO raw tables.
+-- STATUS: stub — implemented in its phase. See TODO.md.

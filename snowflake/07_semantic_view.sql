@@ -1,0 +1,3 @@
+-- Plant Brain :: 07_semantic_view.sql
+-- Phase 6 — semantic view over assets, OEE, work orders, downtime, parts (>= 8 verified queries).
+-- STATUS: stub — implemented in its phase. See TODO.md.

@@ -1,0 +1,20 @@
+# Secrets
+.env
+connections.toml
+*.p8
+*.pem
+
+# Generated data (regenerate with: python data_gen/generate.py)
+data_gen/out/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store

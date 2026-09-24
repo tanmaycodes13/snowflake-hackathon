@@ -1,0 +1,3 @@
+-- Plant Brain :: 03_core_views.sql
+-- Phase 3 — CORE.OEE_DAILY (Availability x Performance x Quality) and CORE.ASSET_HEALTH.
+-- STATUS: stub — implemented in its phase. See TODO.md.

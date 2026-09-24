@@ -1,0 +1,3 @@
+-- Plant Brain :: 06_search.sql
+-- Phase 6 — Cortex Search service BRAIN.CARD_SEARCH over cards.
+-- STATUS: stub — implemented in its phase. See TODO.md.

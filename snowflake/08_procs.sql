@@ -1,0 +1,3 @@
+-- Plant Brain :: 08_procs.sql
+-- Phase 6 — APP.DRAFT_WORK_ORDER, APP.APPROVE_WORK_ORDER, APP.CLOSE_JOB (learning loop).
+-- STATUS: stub — implemented in its phase. See TODO.md.

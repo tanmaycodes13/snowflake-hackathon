@@ -1,0 +1,3 @@
+-- Plant Brain :: 09_agent.sql
+-- Phase 6 — Cortex Agent with CARD_SEARCH, semantic view (Analyst), DRAFT_WORK_ORDER tools.
+-- STATUS: stub — implemented in its phase. See TODO.md.

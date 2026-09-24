@@ -1,0 +1,3 @@
+-- Plant Brain :: 05_anomaly.sql
+-- Phase 5 — rolling z-score + 6h slope anomalies, failure window estimate, historical pattern match.
+-- STATUS: stub — implemented in its phase. See TODO.md.

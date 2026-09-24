@@ -1,0 +1,3 @@
+-- Plant Brain :: 01_raw_tables.sql
+-- Phase 3 — raw tables matching data_gen/out/*.csv.
+-- STATUS: stub — implemented in its phase. See TODO.md.

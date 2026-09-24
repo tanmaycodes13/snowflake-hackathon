@@ -1,0 +1,3 @@
+-- Plant Brain :: 04_cards.sql
+-- Phase 4 — AI extraction of BRAIN.CARDS and BRAIN.EDGES from work orders + handover notes (incremental).
+-- STATUS: stub — implemented in its phase. See TODO.md.

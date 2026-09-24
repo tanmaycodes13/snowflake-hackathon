@@ -1,0 +1,3 @@
+-- Plant Brain :: 99_teardown.sql
+-- Drops every object created by this project. Run last.
+-- STATUS: stub — implemented in its phase. See TODO.md.
