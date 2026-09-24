@@ -13,11 +13,11 @@ Deadline: **4 Oct 2026**. Legend: **[must]** / **[should]** / **[stretch]**. Tic
 - [ ] [should] Rough deck visuals (convert to PDF in Phase 9)
 
 ## Phase 2 — Synthetic data ✅ CHECKPOINT 2
-- [ ] [must] `docs/DATA_MODEL.md`
-- [ ] [must] `generate.py` (seed=42): assets(12), sensor_readings(~310k), failure_modes(~10), technicians(8, 2 retiring), work_orders(~150, messy/Hinglish), handover_notes(~300), production_log, spare_parts(~40), asset_changes(~15)
-- [ ] [must] `scenario.py`: P3 bearing wear ×3 (Ravi: bearing + lube grade), junior bearing-only fix recurred in 9 days, final-day precursor, 2 decoys
-- [ ] [must] `answer_key.json`: expected cards, top-3 retrieval for golden anomaly, OEE for 3 asset-days
-- [ ] [must] `--verify` asserts scenario invariants
+- [x] [must] `docs/DATA_MODEL.md`
+- [x] [must] `generate.py` (seed=42): assets(12), sensor_readings(~310k), failure_modes(~10), technicians(8, 2 retiring), work_orders(~150, messy/Hinglish), handover_notes(~300), production_log, spare_parts(~40), asset_changes(~15)
+- [x] [must] `scenario.py`: P3 bearing wear ×3 (Ravi: bearing + lube grade), junior bearing-only fix recurred in 9 days, final-day precursor, 2 decoys
+- [x] [must] `answer_key.json`: expected cards, top-3 retrieval for golden anomaly, OEE for 3 asset-days
+- [x] [must] `--verify` asserts scenario invariants
 
 ## Phase 3 — Snowflake foundation ✅ CHECKPOINT 3
 - [ ] [must] `00_setup.sql` (PLANT_BRAIN db; RAW/CORE/BRAIN/APP; PB_WH XS AUTO_SUSPEND=60; PB_ROLE; RAW.LANDING)
