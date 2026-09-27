@@ -1,0 +1,2 @@
+# Snowflake runner (scripts/sf.py) and later the eval harness
+snowflake-connector-python>=3.12

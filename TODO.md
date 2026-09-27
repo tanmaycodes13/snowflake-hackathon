@@ -6,7 +6,7 @@ Deadline: **4 Oct 2026**. Legend: **[must]** / **[should]** / **[stretch]**. Tic
 - [x] [must] Repository layout per master prompt
 - [x] [must] `.gitignore`, `.env.example` (no secrets in git)
 - [x] [must] `AGENTS.md`, `coco/PROMPTS.md` started
-- [ ] [must] Confirm Snowflake account region/edition and which Cortex features are enabled (AI_COMPLETE / AI_EXTRACT, Cortex Search, Semantic Views, Cortex Agents, ML Anomaly Detection)
+- [ ] [must] Create trial (Enterprise, AWS US West 2), **add credit card to enable AI features**; confirm region/edition and which Cortex features are enabled (AI_COMPLETE / AI_EXTRACT, Cortex Search, Semantic Views, Cortex Agents, ML Anomaly Detection)
 
 ## Phase 1 — Idea & pitch ✅ CHECKPOINT 1
 - [x] [must] `docs/PITCH.md` 7-slide outline with speaker notes
@@ -20,10 +20,11 @@ Deadline: **4 Oct 2026**. Legend: **[must]** / **[should]** / **[stretch]**. Tic
 - [x] [must] `--verify` asserts scenario invariants
 
 ## Phase 3 — Snowflake foundation ✅ CHECKPOINT 3
-- [ ] [must] `00_setup.sql` (PLANT_BRAIN db; RAW/CORE/BRAIN/APP; PB_WH XS AUTO_SUSPEND=60; PB_ROLE; RAW.LANDING)
-- [ ] [must] `01_raw_tables.sql`, `02_load.sql` (PUT + COPY INTO)
-- [ ] [must] `03_core_views.sql`: CORE.OEE_DAILY, CORE.ASSET_HEALTH
-- [ ] [must] Verify OEE for 3 asset-days within 0.5% of answer key
+- [x] [must] `00_setup.sql` (PLANT_BRAIN db; RAW/CORE/BRAIN/APP; PB_WH XS AUTO_SUSPEND=60; PB_ROLE; RAW.LANDING)
+- [x] [must] `01_raw_tables.sql`, `02_load.sql` (PUT + COPY INTO)
+- [x] [must] `03_core_views.sql`: CORE.OEE_DAILY, CORE.ASSET_HEALTH (+ OEE_LINE_DAILY)
+- [ ] [must] Verify OEE for 3 asset-days within 0.5% of answer key (`snowflake/checks/phase3_checks.sql`, needs a live account)
+- [x] [should] `docs/SNOWFLAKE_SETUP.md` runbook + `scripts/sf.py` runner + optional key-pair agent user
 
 ## Phase 4 — The Brain: knowledge cards ✅ CHECKPOINT 4
 - [ ] [must] Check current docs for AI_EXTRACT / AI_COMPLETE structured output
