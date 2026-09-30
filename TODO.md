@@ -10,7 +10,7 @@ Deadline: **4 Oct 2026**. Legend: **[must]** / **[should]** / **[stretch]**. Tic
 
 ## Phase 1 — Idea & pitch ✅ CHECKPOINT 1
 - [x] [must] `docs/PITCH.md` 7-slide outline with speaker notes
-- [ ] [should] Rough deck visuals (convert to PDF in Phase 9)
+- [x] [should] Deck draft: 12 slides (claude.ai artifact, private; export PDF in Phase 9; fill eval TBDs + team placeholders)
 
 ## Phase 2 — Synthetic data ✅ CHECKPOINT 2
 - [x] [must] `docs/DATA_MODEL.md`
@@ -66,7 +66,8 @@ Deadline: **4 Oct 2026**. Legend: **[must]** / **[should]** / **[stretch]**. Tic
 ## Phase 9 — Docs, demo, submission ✅ FINAL CHECKPOINT
 - [ ] [must] README complete (pitch, screenshot, Mermaid, ≤10-command quickstart, objects, CoCo usage, eval, synthetic notice, limitations)
 - [ ] [must] ARCHITECTURE.md (diagram + learning loop + design decisions)
-- [ ] [must] DEMO_SCRIPT.md (3 min, click by click)
+- [x] [must] DEMO_SCRIPT.md (3 min, click by click) — re-check against built app in Phase 7
+- [ ] [should] `APP.RESET_DEMO()` proc for rehearsals (Phase 6)
 - [ ] [must] Full quickstart from clean clone reproduces golden scenario and eval
 - [ ] [stretch] Voice-note ingestion (`AI_TRANSCRIBE` if available)
 - [ ] [stretch] Staleness alerts from `asset_changes`
