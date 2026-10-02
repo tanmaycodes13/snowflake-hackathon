@@ -4,13 +4,13 @@
 
 ## Ground rules
 1. **Synthetic data only.** Never add real company, person, or asset data.
-2. **Snowflake-native, GA features only.** Before writing any Cortex / AI SQL / Cortex Search / Semantic View / Cortex Agent syntax, check the current Snowflake docs. Never invent syntax. If a feature is unavailable, use the documented fallback (see `TODO.md` and the master prompt) and say so.
+2. **Snowflake-native, GA features only.** Before writing any Cortex / AI SQL / Cortex Search / Semantic View / Cortex Agent syntax, check the current Snowflake docs. Never invent syntax. If a feature is unavailable, use the documented fallback and say so.
 3. **Deterministic.** All randomness is seeded (`seed=42`). The golden scenario (P3 bearing wear) must reproduce identically on every run. `python data_gen/generate.py --verify` must pass.
 4. **Cost discipline.** Use warehouse `PB_WH` (XS, `AUTO_SUSPEND=60`). Run LLM functions on the fewest rows possible, cache results in tables, and never re-extract unchanged rows.
 5. **No secrets in git.** Use `.env` (gitignored) and `~/.snowflake/connections.toml`. Update `.env.example` when adding config.
 6. **Human in the loop.** Nothing, whether the agent, a proc, or the UI, may approve a work order without a human approver.
 7. **Log CoCo usage** in `coco/PROMPTS.md`: prompt, what CoCo produced, and what was changed.
-8. **Keep `TODO.md` current** and commit after every phase.
+8. **Commit after every phase.**
 
 ## Layout
 - `app/`: **core application**: `streamlit_app.py` + `plant_brain/` package (also imported by the Snowflake stored procedures)

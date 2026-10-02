@@ -23,3 +23,6 @@ venv/
 mocks/*.duckdb
 mocks/*.duckdb.wal
 build/
+
+# snow CLI build output
+app/output/
