@@ -7,6 +7,10 @@ USE ROLE PB_ROLE;
 USE WAREHOUSE PB_WH;
 USE SCHEMA PLANT_BRAIN.BRAIN;
 
+-- Source is the table BRAIN.CARD_SEARCH_DOCS (copy of BRAIN.CARDS, see 04_cards.sql): Cortex Search
+-- needs change tracking, which the BRAIN.CARDS view can't support.
+CALL BRAIN.REFRESH_CARD_SEARCH_DOCS();
+
 CREATE OR REPLACE CORTEX SEARCH SERVICE BRAIN.CARD_SEARCH
   ON search_text
   ATTRIBUTES asset_id, failure_mode, card_type, outcome
@@ -17,7 +21,7 @@ AS
   SELECT card_id, search_text, card_type, asset_id, failure_mode, outcome,
          symptom_summary, action_taken, source_type, source_id, source_excerpt,
          author_name, confidence, is_stale
-  FROM PLANT_BRAIN.BRAIN.CARDS;
+  FROM PLANT_BRAIN.BRAIN.CARD_SEARCH_DOCS;
 
 -- Smoke test (expect Ravi's fix, CARD-HN-0163-*, near the top):
 SELECT SNOWFLAKE.CORTEX.SEARCH_PREVIEW(

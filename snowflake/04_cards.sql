@@ -104,9 +104,16 @@ BEGIN
           || 'CNC1-CNC4, P1-P3, AC1, AC2, CV1-CV3, or null. (4) failure_mode must be one of BEARING_WEAR, '
           || 'SEAL_LEAK, SPINDLE_MISALIGNMENT, BELT_SLIP, VALVE_STICKING, COOLANT_BLOCKAGE, MOTOR_OVERHEAT, '
           || 'AIR_FILTER_CLOG, TOOL_WEAR, OIL_CONTAMINATION, or null. (5) outcome RESOLVED / RECURRED / UNKNOWN '
-          || 'only as stated in the text. (6) source_excerpt = an exact substring of the text that supports the '
-          || 'card (max 220 characters). (7) Routine chatter (targets, canteen, housekeeping, "PM done") gives '
-          || 'no card: return an empty list. (8) One sentence can yield several cards (e.g. a FIX and a GOTCHA). '
+          || 'only as stated in the text; a fix the author presents as the working fix ("Fix = ...", "use X") is '
+          || 'RESOLVED; "came back", "does not hold", "wapas", "phir se" is RECURRED. (6) source_excerpt = an exact '
+          || 'substring of the text that supports the card: the whole sentence it comes from (max 220 characters). '
+          || '(7) Routine chatter (targets, canteen, housekeeping, safety talk, "PM done", "running ok") gives no card. '
+          || 'But a workaround or warning ("do X otherwise Y", "use X, Y fails", "dont", "only", "warna") is a GOTCHA, '
+          || 'not chatter. (8) One sentence can yield several cards (e.g. a FIX and a GOTCHA). '
+          || 'Example: "Fix = replace bearing AND switch grease from LG-2 to HT-3. Only bearing change does NOT hold - '
+          || 'it came back in 9 days. Keep min 2 bearings in store." gives FIX RESOLVED, GOTCHA RECURRED, CONVENTION. '
+          || '(9) Never output null: use outcome UNKNOWN and an empty string for any text you cannot fill '
+          || '(the action_taken of a warning is the advised action). '
           || '\nSOURCE TYPE: ' || t.source_type
           || '\nASSET (if known): ' || COALESCE(t.asset_id, 'unknown')
           || '\nFAILURE MODE CODE (if known): ' || COALESCE(t.failure_mode_code, 'unknown')
@@ -159,12 +166,39 @@ BEGIN
     FROM BRAIN.TMP_EXTRACTED e,
          LATERAL FLATTEN(input => e.resp:cards) f;
 
+  -- A NULL response is a failed call (e.g. output rejected by the schema): leave it unlogged so the next run retries.
   INSERT INTO BRAIN.CARD_EXTRACT_LOG
     SELECT source_type, source_id, text_hash, COALESCE(ARRAY_SIZE(resp:cards), 0), :MODEL, CURRENT_TIMESTAMP()
-    FROM BRAIN.TMP_EXTRACTED;
+    FROM BRAIN.TMP_EXTRACTED
+    WHERE resp IS NOT NULL;
 
   SELECT COUNT(*) INTO :n FROM BRAIN.TMP_EXTRACTED;
+  CALL BRAIN.REFRESH_CARD_SEARCH_DOCS();
   RETURN n || ' new source(s) extracted with ' || MODEL;
+END;
+$$;
+
+-- Cortex Search can't track changes on BRAIN.CARDS (the view has a subquery, GROUP BY and outer
+-- joins), so the search service reads this plain copy. Refreshed after every extraction.
+-- DELETE + INSERT (not CREATE OR REPLACE) keeps the table, and its change tracking, in place.
+CREATE OR REPLACE PROCEDURE BRAIN.REFRESH_CARD_SEARCH_DOCS()
+RETURNS VARCHAR
+LANGUAGE SQL
+AS
+$$
+BEGIN
+  CREATE TABLE IF NOT EXISTS BRAIN.CARD_SEARCH_DOCS CHANGE_TRACKING = TRUE AS
+    SELECT card_id, search_text, card_type, asset_id, failure_mode, outcome,
+           symptom_summary, action_taken, source_type, source_id, source_excerpt,
+           author_name, confidence, is_stale
+    FROM BRAIN.CARDS WHERE FALSE;
+  DELETE FROM BRAIN.CARD_SEARCH_DOCS;
+  INSERT INTO BRAIN.CARD_SEARCH_DOCS
+    SELECT card_id, search_text, card_type, asset_id, failure_mode, outcome,
+           symptom_summary, action_taken, source_type, source_id, source_excerpt,
+           author_name, confidence, is_stale
+    FROM BRAIN.CARDS;
+  RETURN 'card search docs refreshed';
 END;
 $$;
 

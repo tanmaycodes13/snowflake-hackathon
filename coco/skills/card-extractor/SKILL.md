@@ -24,7 +24,8 @@ Schema: `card_type, asset_id, failure_mode, symptom_summary, action_taken, parts
    inherits the last asset mentioned earlier in the same note.
 4. `failure_mode` ∈ the 10 codes in `RAW.FAILURE_MODES` or null. Keyword priority: motor trip/overload → MOTOR_OVERHEAT
    before belt → BELT_SLIP; brg/bearing/grease/lube → BEARING_WEAR; seal/leak → SEAL_LEAK; valve → VALVE_STICKING.
-5. `outcome` only as stated: RESOLVED / RECURRED ("came back", "wapas", "phir se") / UNKNOWN.
+5. `outcome` only as stated: RESOLVED (incl. a fix the author presents as the working fix: "Fix = …", "use X") /
+   RECURRED ("came back", "wapas", "phir se") / UNKNOWN.
    **Do not** mark a fix RECURRED from its own text; recurrence across work orders is derived later by the graph
    (`BRAIN.CARDS` view: same asset + failure mode re-opened within 14 days).
 6. Chatter (targets, canteen, housekeeping, "PM done", "running ok") yields **no card**.
