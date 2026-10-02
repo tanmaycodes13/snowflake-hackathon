@@ -90,9 +90,10 @@ followed: [`card-extractor`](coco/skills/card-extractor/SKILL.md) and [`work-ord
 
 ## Evaluation (summary)
 25 golden questions (recall, gotcha, analytics, boundary) plus golden-anomaly retrieval, against a naive "keyword search
-over raw notes" baseline. **Local mock run (no LLM)**: Plant Brain 25/25 correct and 5/5 correct refusals; baseline
-10/25 and 3/5. The first run was 22/25 (three routing/ranking bugs, fixed). Caveats and per-question results are in
-[`docs/EVALUATION.md`](docs/EVALUATION.md). Re-run on Cortex with `python eval/run_eval.py --snowflake --write`.
+over raw notes" baseline. **Live on Snowflake Cortex:** Plant Brain 18/25 vs baseline 9/25; analytics 7/7 (verified
+queries) and refusals 5/5. All 7 misses are over-cautious answers: the right cards were retrieved, but the answer model
+replied "can't establish". That's the next fix. The offline mock run (no LLM) scores 25/25 vs 10/25. Details and
+per-question results are in [`docs/EVALUATION.md`](docs/EVALUATION.md).
 
 ## Limitations
 - Synthetic data, and a scenario we designed, so the evaluation proves the mechanism, not generalisation.
