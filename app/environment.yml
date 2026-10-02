@@ -1,0 +1,8 @@
+# Packages for Streamlit in Snowflake (Snowflake Anaconda channel)
+name: plant_brain
+channels:
+  - snowflake
+dependencies:
+  - altair
+  - pandas
+  - snowflake-snowpark-python

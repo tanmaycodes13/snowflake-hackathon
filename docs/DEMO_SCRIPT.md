@@ -1,7 +1,7 @@
 # Demo Script: 3 minutes, click by click
 
 > Everything shown is **synthetic** and reproduces exactly from `seed=42`. The IDs and numbers below come from `data_gen/answer_key.json`.
-> The app screens are described as **designed for Phase 7**. Re-check each step against the built app before recording.
+> Screens match the built app (`app/streamlit_app.py`). Rehearse offline with `make app`, and live in Streamlit in Snowflake.
 
 **Cast:** one presenter plays Anjali (planner) and, in step 5, the technician. An optional second person drives the clicks.
 **Setup:** two windows. Window 1 is the deck, open on slide 1. Window 2 is the Streamlit app (Snowsight → Projects → Streamlit → `PLANT_BRAIN_APP`), already signed in, on **Command Center**.
@@ -12,18 +12,18 @@
 |---|---|---|---|
 | **0:00** | Deck, slide 1 (cover) | none | "Every plant has a Ravi: the senior technician everyone calls when a machine acts up. Ravi retires next year. Plant Brain makes sure his knowledge doesn't." |
 | **0:15** | Switch to app → **Command Center** | none | "This is Anjali's morning. OEE by line, and three active anomalies." |
-| **0:20** | Command Center | Point at the anomaly table: **P3 = ALERT**, CNC2, CV2 | "Press P3: vibration up about 10% since midnight, and temperature is starting to follow. Two other machines are also flagged. Watch how the Brain treats them differently." |
-| **0:40** | Click the **P3** row → **Anomaly → Brain** | none | "We've seen this signature before, three times." |
-| **0:45** | Anomaly → Brain: sensor chart | Toggle **overlay historical matches** | "Today's trace, in amber, overlaid on the three past episodes: 17 June, 22 July and 14 August. Same shape: vibration climbs, then temperature." |
-| **0:60** | Recalled cards panel | Hover the top card | "Top card: Ravi's fix. Replace the DE bearing *and* switch the grease from LG-2 to HT-3. Cited from handover note **HN-0163**. He wrote that down clearly exactly once, between a line about material delays and the canteen AC." |
-| **1:10** | Gotcha banner | Point at the amber banner | "And what *not* to do: in July a bearing-only fix recurred in 9 days, **WO-2026-0067**. Nobody wrote 'this failed' on that work order. The Brain worked it out by linking it to the recurrence." |
-| **1:20** | Failure window | Point at the range bar | "Estimated 24 to 46 hours to threshold. It's labeled as an estimate: the low end is how past episodes accelerated, the high end is a straight-line trend." |
-| **1:30** | Click **Draft work order** → **Work Order Approval** | none | "One click drafts the work order." |
+| **0:20** | Command Center | Point at the anomaly table: **P3 = 🔴 CRITICAL**, CNC2 and CV2 = HIGH | "Press P3: vibration up about 9% since early morning, and temperature is starting to follow. Two other machines are also flagged, but only P3 matches a past failure, so only P3 is critical." |
+| **0:40** | Keep A-P3-… selected → **Open →** | none | "We've seen this signature before, three times." |
+| **0:45** | Anomaly → Brain: sensor chart | Point at the orange line, then flip **Sensor** to Temperature | "Today's trace, in orange, overlaid on the past P3 failures in gray. Same shape: vibration climbs, then temperature follows." |
+| **0:60** | What the Brain recalls | The top card is open | "Top card: Ravi's fix. Replace the DE bearing *and* switch the grease from LG-2 to HT-3. Cited from handover note **HN-0163**. He wrote that down clearly exactly once, between a line about material delays and the canteen AC." |
+| **1:10** | Gotcha banner | Point at the yellow banner | "And what *not* to do: in July a bearing-only fix, **WO-2026-0067**, didn't hold. WO-2026-0079 re-opened the same failure 9 days later. Nobody wrote 'this failed' on that work order. The Brain worked it out by linking the two." |
+| **1:20** | Failure window metric | Point at **21–54 h** | "Estimated 21 to 54 hours to threshold, labeled as an estimate: the low end is how past episodes accelerated, the high end is a straight-line trend." |
+| **1:30** | Click **Draft work order →** (opens Work Order Approval) | none | "One click drafts the work order." |
 | **1:35** | Draft | Scroll through it | "Parts: bearing 6312 and HT-3 grease. Only one bearing in stock, so it flags reorder risk. Suggested technician: Ravi, who fixed this three times. Every line cites a card." |
-| **1:45** | Draft | Click **Approve** (approver: Anjali) | "The agent drafts. A human approves. It never approves anything itself." |
-| **1:50** | Click **Close Job** | Paste the closing note below, click **Submit** | "Now the technician closes the job, in his own words." |
-| **2:00** | Close Job: new-card panel | Wait for the refresh, point at the new card | "And there's the learning loop: his note is now a knowledge card, linked to P3 and bearing wear. Next time, the Brain knows a little more." |
-| **2:15** | Click **Ask the Plant** | Type Q1 below | "Anjali can also just ask." (Answer shows OEE with a source.) |
+| **1:45** | Draft | Approver = Anjali, click **✅ Approve** | "The agent drafts. A human approves. It never approves anything itself." |
+| **1:50** | Sidebar → **Close Job** | The closing note is prefilled; click **Submit and close** | "Now the technician closes the job, in his own words." |
+| **2:00** | Close Job: result | Point at the new card and the SUPERSEDES link | "And there's the learning loop: his note is now a knowledge card, linked to P3 and bearing wear. Next time, the Brain knows a little more." |
+| **2:15** | Sidebar → **Ask the Plant** | Type Q1 below | "Anjali can also just ask." (Answer shows OEE with a source.) |
 | **2:25** | Ask the Plant | Type Q2 below | "And when the data can't answer, it says so instead of guessing." |
 | **2:35** | Back to deck → slide 11 (proof) | none | "We didn't just demo the happy path. 25 golden questions, Plant Brain against a keyword-search baseline: [hit@3], [correctness], [citations], [refusals]." |
 | **2:50** | Deck, slide 12 (close) | none | "All of it is Snowflake-native, built with CoCo. When your best technician retires, their knowledge doesn't. Thank you." |
@@ -37,7 +37,7 @@ P3 DE brg 6312 replaced + HT-3 grease, old grease flushed. vib back to normal af
 
 **Q1, analytics:**
 ```
-What was the OEE for line L3 last week, and what was the top downtime cause?
+What was the OEE for line L3 last week?
 ```
 
 **Q2, boundary (must refuse, or answer "I can't establish that"):**
@@ -49,7 +49,7 @@ Which technician is most likely to quit this year?
 
 ## Before recording
 - [ ] `python data_gen/generate.py --verify` passes, and the data loaded is fresh (`snowflake/02_load.sql` resets RAW, which also wipes earlier demo closing notes).
-- [ ] Reset the demo state: no leftover drafts or closed jobs from rehearsal. Phase 6 will add an `APP.RESET_DEMO()` proc for this.
+- [ ] Click **Reset demo** in the sidebar (or `CALL PLANT_BRAIN.APP.RESET_DEMO();`): no leftover drafts or closed jobs from rehearsal.
 - [ ] Warm up: open every page once, so the warehouse is resumed and caches are hot.
 - [ ] `PB_WH` is running: cold resume is ~1–2 s, fine, but do the warm-up anyway.
 - [ ] Browser zoom at 110–125%, notifications off, bookmarks bar hidden.
@@ -60,7 +60,7 @@ Which technician is most likely to quit this year?
 |---|---|
 | Agent is slow or times out on Ask the Plant | Skip to the proof slide: "The agent's answers are in the eval table." |
 | New card doesn't appear within ~10 s | Click **Refresh**. If still nothing, show the pre-recorded clip of step 5. |
-| Streamlit won't load | Play the recorded demo video from 0:15. |
+| Streamlit won't load | Switch to the local mock (`make app`, same flow), or play the recorded video from 0:15. |
 | Wi-Fi dies | The video is saved locally, and the deck exports to PDF. |
 
 ## Why this flow scores

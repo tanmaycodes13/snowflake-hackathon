@@ -1,5 +1,7 @@
 # Snowflake setup runbook
 
+> The complete, up-to-date walkthrough is [`JUMPSTART.md`](../JUMPSTART.md). This page keeps the account-level details.
+
 Getting from zero to a loaded `PLANT_BRAIN` database. Takes about 15 minutes, and Phase 3 costs well under 1 credit.
 
 ## 1. Create the account

@@ -18,3 +18,8 @@ venv/
 .vscode/
 .idea/
 .DS_Store
+
+# Local mock warehouse + build artifacts (regenerate with: make mock / python scripts/package_procs.py)
+mocks/*.duckdb
+mocks/*.duckdb.wal
+build/

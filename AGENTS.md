@@ -13,11 +13,16 @@
 8. **Keep `TODO.md` current** and commit after every phase.
 
 ## Layout
+- `app/`: **core application**: `streamlit_app.py` + `plant_brain/` package (also imported by the Snowflake stored procedures)
+- `snowflake/NN_*.sql`: run in numeric order; `99_teardown.sql` removes everything; `checks/` = portable PASS/FAIL checks
+- `mocks/`: local stand-ins for Snowflake services. Keep SQL in `01/03/04/05/08` portable so DuckDB can run it verbatim
 - `data_gen/`: synthetic data generator, golden scenario, answer key
-- `snowflake/NN_*.sql`: run in numeric order; `99_teardown.sql` removes everything
-- `coco/skills/`: CoCo skills (card-extractor, work-order-drafter)
-- `app/`: Streamlit in Snowflake app
 - `eval/`: golden questions and evaluation harness
+- `scripts/`: runner, deploy, checks, smoke test, packaging, semantic-view renderer
+- `coco/skills/`: CoCo skills (card-extractor, work-order-drafter)
+
+## Before you commit
+`make test` (data verify, semantic-view freshness, 25 checks, smoke test, eval) must pass.
 
 ## Snowflake object naming
 Database `PLANT_BRAIN`; schemas `RAW` (landed data), `CORE` (OEE/health views), `BRAIN` (cards, edges, anomalies, search), `APP` (procs, drafts, UI-facing objects). Role `PB_ROLE`. Stage `RAW.LANDING`.

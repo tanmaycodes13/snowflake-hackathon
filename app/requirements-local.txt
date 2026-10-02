@@ -1,0 +1,6 @@
+# Local run of the Streamlit app (mock or Snowflake backend)
+streamlit>=1.39
+pandas>=2.0
+altair>=5.0
+duckdb>=1.1
+snowflake-connector-python>=3.12

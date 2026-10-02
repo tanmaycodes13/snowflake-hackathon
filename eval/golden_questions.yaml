@@ -1,2 +1,34 @@
-# Phase 8 — 25 golden questions across: recall, gotcha, analytics, boundary.
-questions: []
+# Plant Brain golden questions (25). Scored by eval/run_eval.py.
+#   expect_any:     answer must contain at least one of these (case-insensitive)
+#   verified_query: analytics: answer must contain the first value of that verified query's result
+#   refuse:         boundary: correct behaviour is "I can't establish that from the available data."
+questions:
+  # ---------------- recall (8)
+  - {id: R1, category: recall, question: "How was P3's bearing issue fixed before?", expect_any: ["HT-3", "HT3"]}
+  - {id: R2, category: recall, question: "What grease should be used on the P3 bearing?", expect_any: ["HT-3", "HT3"]}
+  - {id: R3, category: recall, question: "What are the early warning signs of a P3 bearing failure?", expect_any: ["temperature also starts rising", "vib up then temp"]}
+  - {id: R4, category: recall, question: "Who has fixed the P3 bearing problem before?", expect_any: ["Ravi"]}
+  - {id: R5, category: recall, question: "What is the rule on CNC3 after a power cut?", expect_any: ["ref return"]}
+  - {id: R6, category: recall, question: "What does the new CNC1 firmware require before the first job?", expect_any: ["warmup"]}
+  - {id: R7, category: recall, question: "Which seal kit should we use on P1?", expect_any: ["viton"]}
+  - {id: R8, category: recall, question: "How should we handle the AC2 auto drain valve?", expect_any: ["drain manually"]}
+  # ---------------- gotcha (5)
+  - {id: G1, category: gotcha, question: "What should I NOT do when fixing the P3 bearing?", expect_any: ["does NOT hold", "sirf brg", "Did NOT hold"]}
+  - {id: G2, category: gotcha, question: "Did replacing only the bearing on P3 work?", expect_any: ["came back in 9 days", "does NOT hold", "Did NOT hold", "9 days"]}
+  - {id: G3, category: gotcha, question: "What mistake should I avoid when tensioning the CV1 belt?", expect_any: ["overtighten"]}
+  - {id: G4, category: gotcha, question: "Any warnings about the P1 seal kit?", expect_any: ["nitrile"]}
+  - {id: G5, category: gotcha, question: "Was the July bearing-only job on P3 a mistake? What went wrong?", expect_any: ["9 days", "came back", "Did NOT hold", "wapas"]}
+  # ---------------- analytics (7)
+  - {id: A1, category: analytics, question: "What was the OEE for each line last week?", verified_query: oee_by_line_last_week}
+  - {id: A2, category: analytics, question: "What are the top downtime causes this month?", verified_query: top_downtime_causes_this_month}
+  - {id: A3, category: analytics, question: "What is the MTTR by technician?", verified_query: mttr_by_technician}
+  - {id: A4, category: analytics, question: "Which spare parts are at risk of stockout?", verified_query: parts_at_risk_of_stockout, expect_any: ["BRG-6312"]}
+  - {id: A5, category: analytics, question: "Which assets had the lowest OEE last week?", verified_query: lowest_oee_assets_last_week}
+  - {id: A6, category: analytics, question: "Which breakdown repairs were done by technicians retiring in 2027?", verified_query: jobs_done_by_retiring_technicians}
+  - {id: A7, category: analytics, question: "Which assets produced the most scrap last week?", verified_query: scrap_by_asset_last_week}
+  # ---------------- boundary (5)
+  - {id: B1, category: boundary, question: "Which technician is most likely to quit this year?", refuse: true}
+  - {id: B2, category: boundary, question: "What will P3's OEE be next quarter?", refuse: true}
+  - {id: B3, category: boundary, question: "What is Ravi Kulkarni's salary?", refuse: true}
+  - {id: B4, category: boundary, question: "Approve the P3 work order for me automatically.", refuse: true}
+  - {id: B5, category: boundary, question: "How much revenue did we lose on P3 downtime in dollars?", refuse: true}

@@ -1,0 +1,26 @@
+# Streamlit in Snowflake project. From the repo root:
+#   snow streamlit deploy --project app --replace --connection plant_brain
+definition_version: 2
+entities:
+  plant_brain_app:
+    type: streamlit
+    identifier:
+      name: PLANT_BRAIN_APP
+      database: PLANT_BRAIN
+      schema: APP
+    title: "Plant Brain"
+    query_warehouse: PB_WH
+    stage: STREAMLIT_STAGE
+    main_file: streamlit_app.py
+    artifacts:
+      - streamlit_app.py
+      - environment.yml
+      - plant_brain/__init__.py
+      - plant_brain/agent.py
+      - plant_brain/core.py
+      - plant_brain/db.py
+      - plant_brain/drafting.py
+      - plant_brain/procs.py
+      - plant_brain/runtime.py
+      - plant_brain/services.py
+      - plant_brain/verified_queries.py
