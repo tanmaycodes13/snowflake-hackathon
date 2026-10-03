@@ -11,7 +11,7 @@
 --
 -- Before running: python scripts/package_procs.py  (builds build/plant_brain.zip)
 -- Then run this file with scripts/sf.py from the repo root (PUT needs a client, not Snowsight).
--- The procedure logic is app/plant_brain/core.py; drafting rules: coco/skills/work-order-drafter/SKILL.md.
+-- The procedure logic is app/plant_brain/core.py; drafting rules: .cortex/skills/work-order-drafter/SKILL.md.
 
 USE ROLE PB_ROLE;
 USE WAREHOUSE PB_WH;

@@ -1,6 +1,6 @@
 """Mock Cortex AI_COMPLETE for card extraction: deterministic rules, no LLM.
 
-Follows the same rules as coco/skills/card-extractor/SKILL.md and the prompt in
+Follows the same rules as .cortex/skills/card-extractor/SKILL.md and the prompt in
 snowflake/04_cards.sql, and writes the same rows to BRAIN.CARDS_RAW / BRAIN.CARD_EXTRACT_LOG.
 It is intentionally simple: it shows the pipeline end to end offline. Real extraction quality
 comes from Cortex in Snowflake mode.
@@ -28,9 +28,9 @@ FM_KEYWORDS = [  # order matters: first hit wins
 ]
 CONVENTION_CUES = ["mandatory", "ref return", "keep min", "always "]
 GOTCHA_CUES = ["not hold", "dont ", "don't", "do not", "otherwise", "warna", "fails in", "never ",
-               "sirf", "only bearing", "wapas aaya"]
+               "sirf", "only bearing", "wapas aaya", " mat "]
 SYMPTOM_CUES = ["when ", "creeping", "starts rising", "root cause looks like", "then temp"]
-FIX_CUES = ["fix =", "fix=", "replace", "repl", "changed", "chngd", "change kiya", "badla", "done", "fitted"]
+FIX_CUES = ["fix =", "fix=", "replace", "repl", "changed", "chngd", "change kiya", "badla", "done", "fitted", "aligned", "align kiya"]
 RECUR_CUES = ["came back", "wapas", "phir se", "recur", "again"]
 
 

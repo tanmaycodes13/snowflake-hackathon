@@ -9,7 +9,7 @@
 --   BRAIN.CARDS             view   cards + recurrence rule (outcome RECURRED) + staleness flag
 --   BRAIN.EDGES             view   card->asset / failure mode / technician, card->card CONTRADICTS|SUPERSEDES
 --
--- Extraction rules live in coco/skills/card-extractor/SKILL.md. The local mock
+-- Extraction rules live in .cortex/skills/card-extractor/SKILL.md. The local mock
 -- (mocks/cortex.py) applies the same rules without an LLM. Everything except the procedure
 -- and the task is portable SQL that mocks/warehouse.py also runs on DuckDB.
 

@@ -111,17 +111,17 @@ flowchart LR
 
 ## Slide 6 — The proof: evaluation
 
-**On the slide** *(from `docs/EVALUATION.md`, **local mock run, no LLM**; replace with the Cortex run from `python eval/run_eval.py --snowflake --write` once the account works)*
+**On the slide** *(from `docs/EVALUATION.md`, **live on Snowflake Cortex**)*
 
 | Metric | Naive baseline (keyword RAG over raw notes) | Plant Brain |
 |---|---|---|
 | Retrieval hit@3 on golden anomaly | 1/1 | 1/1 |
-| Answer correctness (25 golden Qs) | 10/25 (40%) | 25/25 (100%) |
+| Answer correctness (25 golden Qs) | 9/25 (36%) | 18/25 (72%) |
 | Analytics answers correct (7) | 1/7 | 7/7 |
 | Correct refusals on boundary Qs (5) | 3/5 | 5/5 |
-| Answers with citations (20 answerable) | 18/20 | 20/20 |
+| Answers with citations (20 answerable) | 18/20 | 13/20 |
 
-- First run was 22/25; the eval found three routing/ranking bugs, which were fixed. Tuned and tested on the same synthetic scenario.
+- All 7 misses are over-cautious answers (the cards were retrieved). The offline mock run (no LLM) is 25/25 vs 10/25.
 
 **Speaker notes**
 > "We didn't just demo the happy path. We built 25 golden questions with an answer key and ran the same questions against a naive baseline. Here's where the Brain wins, and here's where it still gets things wrong."

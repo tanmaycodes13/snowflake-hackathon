@@ -64,7 +64,8 @@ snow streamlit deploy --project app --replace
 | `data_gen/` | Seeded synthetic data, golden scenario, `answer_key.json` |
 | `eval/` | 25 golden questions, Plant Brain vs naive baseline |
 | `scripts/` | Runner, deploy, checks, smoke test, packaging |
-| `coco/` | CoCo skills + prompt log |
+| `.cortex/skills/` | CoCo CLI project skills (`$anomaly-triage`, `$work-order-drafter`, `$card-extractor`) |
+| `coco/` | Prompt log: how CoCo was used |
 | `docs/` | Pitch, data model, evaluation |
 
 ## Snowflake features used (exact objects)
@@ -84,15 +85,25 @@ snow streamlit deploy --project app --replace
 
 ## How CoCo was used
 Every phase was driven by prompts logged in [`coco/PROMPTS.md`](coco/PROMPTS.md): what was asked, what was produced,
-and what we changed (including the bugs our own checks caught). Two project skills encode the rules the agent
-followed: [`card-extractor`](coco/skills/card-extractor/SKILL.md) and [`work-order-drafter`](coco/skills/work-order-drafter/SKILL.md).
-[`AGENTS.md`](AGENTS.md) holds the guard rails (synthetic data, GA features, determinism, human approval).
+and what we changed (including the bugs our own checks caught). The workflow itself runs **in CoCo CLI** as three
+modular project skills in [`.cortex/skills/`](.cortex/skills/), each invoked by name and executing against Snowflake:
+
+| Skill | Input → Processing → Output |
+|---|---|
+| [`$anomaly-triage`](.cortex/skills/anomaly-triage/SKILL.md) | sensor-derived anomalies → SQL scoring, history match, Cortex Search → cited triage report |
+| [`$work-order-drafter`](.cortex/skills/work-order-drafter/SKILL.md) | anomaly id → Snowpark `DRAFT_WORK_ORDER` → cited draft; **human approval**; close job |
+| [`$card-extractor`](.cortex/skills/card-extractor/SKILL.md) | messy note → Cortex `AI_COMPLETE` (JSON schema, cached) → knowledge cards + graph links |
+
+Run them: `cortex -c <connection>` from the repo root, then `$$` to list the skills. The recorded walkthrough is in
+[`docs/VIDEO_SCRIPT.md`](docs/VIDEO_SCRIPT.md). [`AGENTS.md`](AGENTS.md) holds the guard rails (synthetic data,
+GA features, determinism, human approval).
 
 ## Evaluation (summary)
 25 golden questions (recall, gotcha, analytics, boundary) plus golden-anomaly retrieval, against a naive "keyword search
-over raw notes" baseline. **Local mock run (no LLM)**: Plant Brain 25/25 correct and 5/5 correct refusals; baseline
-10/25 and 3/5. The first run was 22/25 (three routing/ranking bugs, fixed). Caveats and per-question results are in
-[`docs/EVALUATION.md`](docs/EVALUATION.md). Re-run on Cortex with `python eval/run_eval.py --snowflake --write`.
+over raw notes" baseline. **Live on Snowflake Cortex:** Plant Brain 18/25 vs baseline 9/25; analytics 7/7 (verified
+queries) and refusals 5/5. All 7 misses are over-cautious answers: the right cards were retrieved, but the answer model
+replied "can't establish". That's the next fix. The offline mock run (no LLM) scores 25/25 vs 10/25. Details and
+per-question results are in [`docs/EVALUATION.md`](docs/EVALUATION.md).
 
 ## Limitations
 - Synthetic data, and a scenario we designed, so the evaluation proves the mechanism, not generalisation.
