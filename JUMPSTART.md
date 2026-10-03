@@ -4,7 +4,7 @@ Every step, in order: local mock run, then the full Snowflake deployment.
 All data is **synthetic** (fictional plant, people and assets, generated with `seed=42`).
 
 ```
-plant-brain/
+snowflake-hackathon/
 ├── app/                 ← CORE APPLICATION
 │   ├── streamlit_app.py     5-page UI (runs in Streamlit in Snowflake or locally)
 │   ├── plant_brain/         core logic: recall, drafting, approval, close-job loop, agent, DB adapters
@@ -28,7 +28,7 @@ Needs Python 3.10+ and git.
 
 ```bash
 # Clone and install (Windows: .venv\Scripts\activate)
-git clone https://github.com/tanmaycodes13/snowflake-hackathon.git plant-brain && cd plant-brain
+git clone https://github.com/tanmaycodes13/snowflake-hackathon.git && cd snowflake-hackathon
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 

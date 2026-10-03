@@ -22,13 +22,15 @@ All data is **synthetic** (a fictional plant). Say so once, at 0:10.
    ```bash
    curl -qLsS https://ai.snowflake.com/static/cc-scripts/install.sh | sh
    ```
-   Use the same Snowflake connection as `.env` / `~/.snowflake/connections.toml`, named `plant_brain`.
+   Use the Snowflake connection you deployed with (it lives in `~/.snowflake/connections.toml`).
+   To see its name: `snow connection list`, or just run `cortex` with no `-c` and pick it in the setup wizard.
 2. **Deploy is done** (`python scripts/deploy_snowflake.py`). Check that steps 04, 05, 06 and 08 exist: the card procedure, anomalies, `CARD_SEARCH`, and the `APP.*` procedures.
 3. **Reset the demo state** (and again before every retake): run `snowflake/demo_reset.sql` in Snowsight, or
    `python scripts/sf.py run snowflake/demo_reset.sql`.
 4. **Start CoCo from the repo root**, so it loads the project skills:
    ```bash
-   cd plant-brain && cortex -c plant_brain
+   cd snowflake-hackathon            # the repo root (your clone folder)
+   cortex -c <your-connection-name>  # or plain `cortex` and pick the connection
    ```
    Type `$$`. All three skills must be listed: `anomaly-triage`, `work-order-drafter`, `card-extractor`.
 5. **Do a dry run of the whole script once.** It warms the warehouse and teaches you where CoCo pauses for
