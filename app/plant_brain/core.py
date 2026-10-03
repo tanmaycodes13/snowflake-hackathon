@@ -235,7 +235,12 @@ class PlantBrain:
             self.db.execute(f"DELETE FROM {DB_}.BRAIN.CARD_EXTRACT_LOG WHERE source_id = ?", [wo])
             self.db.execute(f"DELETE FROM {DB_}.RAW.WORK_ORDERS WHERE wo_id = ?", [wo])
         self.db.execute(f"DELETE FROM {DB_}.APP.WORK_ORDER_DRAFTS")
-        return f"reset: removed {len(app_wos)} demo work order(s) and all drafts"
+        # demo handover notes added through the card-extractor skill (ids HN-9xxx)
+        n_notes = self.db.scalar(f"SELECT COUNT(*) FROM {DB_}.RAW.HANDOVER_NOTES WHERE note_id LIKE 'HN-9%'") or 0
+        for t in ("BRAIN.CARDS_RAW", "BRAIN.CARD_EXTRACT_LOG"):
+            self.db.execute(f"DELETE FROM {DB_}.{t} WHERE source_id LIKE 'HN-9%'")
+        self.db.execute(f"DELETE FROM {DB_}.RAW.HANDOVER_NOTES WHERE note_id LIKE 'HN-9%'")
+        return (f"reset: removed {len(app_wos)} demo work order(s), {int(n_notes)} demo note(s) and all drafts")
 
     # ------------------------------------------------------------------ analytics
     def route_question(self, question: str) -> tuple[dict | None, float]:

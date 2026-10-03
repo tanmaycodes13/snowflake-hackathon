@@ -19,7 +19,7 @@
 - `data_gen/`: synthetic data generator, golden scenario, answer key
 - `eval/`: golden questions and evaluation harness
 - `scripts/`: runner, deploy, checks, smoke test, packaging, semantic-view renderer
-- `coco/skills/`: CoCo skills (card-extractor, work-order-drafter)
+- `.cortex/skills/`: CoCo skills (card-extractor, work-order-drafter)
 
 ## Before you commit
 `make test` (data verify, semantic-view freshness, 25 checks, smoke test, eval) must pass.

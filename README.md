@@ -84,9 +84,18 @@ snow streamlit deploy --project app --replace
 
 ## How CoCo was used
 Every phase was driven by prompts logged in [`coco/PROMPTS.md`](coco/PROMPTS.md): what was asked, what was produced,
-and what we changed (including the bugs our own checks caught). Two project skills encode the rules the agent
-followed: [`card-extractor`](coco/skills/card-extractor/SKILL.md) and [`work-order-drafter`](coco/skills/work-order-drafter/SKILL.md).
-[`AGENTS.md`](AGENTS.md) holds the guard rails (synthetic data, GA features, determinism, human approval).
+and what we changed (including the bugs our own checks caught). The workflow itself runs **in CoCo CLI** as three
+modular project skills in [`.cortex/skills/`](.cortex/skills/), each invoked by name and executing against Snowflake:
+
+| Skill | Input → Processing → Output |
+|---|---|
+| [`$anomaly-triage`](.cortex/skills/anomaly-triage/SKILL.md) | sensor-derived anomalies → SQL scoring, history match, Cortex Search → cited triage report |
+| [`$work-order-drafter`](.cortex/skills/work-order-drafter/SKILL.md) | anomaly id → Snowpark `DRAFT_WORK_ORDER` → cited draft; **human approval**; close job |
+| [`$card-extractor`](.cortex/skills/card-extractor/SKILL.md) | messy note → Cortex `AI_COMPLETE` (JSON schema, cached) → knowledge cards + graph links |
+
+Run them: `cortex -c <connection>` from the repo root, then `$$` to list the skills. The recorded walkthrough is in
+[`docs/VIDEO_SCRIPT.md`](docs/VIDEO_SCRIPT.md). [`AGENTS.md`](AGENTS.md) holds the guard rails (synthetic data,
+GA features, determinism, human approval).
 
 ## Evaluation (summary)
 25 golden questions (recall, gotcha, analytics, boundary) plus golden-anomaly retrieval, against a naive "keyword search

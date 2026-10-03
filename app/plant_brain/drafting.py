@@ -1,6 +1,6 @@
 """Work-order drafter. Pure Python, no I/O: inputs in, draft dict out.
 
-Rules (mirrored in coco/skills/work-order-drafter/SKILL.md):
+Rules (mirrored in .cortex/skills/work-order-drafter/SKILL.md):
   1. Lead with the best RESOLVED FIX card for this asset + failure mode; cite its card id.
   2. Always include GOTCHA cards as "Do NOT" lines; cite them.
   3. Never recommend an action that only appears in a RECURRED card.

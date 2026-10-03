@@ -10,6 +10,10 @@ A running log of key prompts given to the coding agent, what it produced, and wh
 
 | 4 | 4–9 | "Put all the services, mocks and everything the demo needs in the repo, plus a jump-start file; core app in its own folder" | Checked current docs (AI_COMPLETE structured output, Cortex Search, SEARCH_PREVIEW, semantic views + verified queries, CREATE AGENT, snowflake.yml). Wrote `04`–`10`, `99`, `checks/brain_checks.sql`; core package `app/plant_brain/` (shared by app, stored procs, mock); 5-page Streamlit app; `mocks/` (DuckDB runs the real SQL + rule-based extraction + BM25 search); eval harness; JUMPSTART/README/ARCHITECTURE; skills | Bugs our own checks caught: Snowflake has no named WINDOW clause (inlined); GROUP BY missing a column; noisy 6 h slope gave a 76 h window (switched to whole-anomaly slope: 21–54 h); draft listed an unrelated oil-contamination recurrence; P3 ranked MEDIUM below decoys (added CRITICAL priority from matched history); Streamlit widget-state nav error; first eval 22/25: router too strict for MTTR/scrap and stale-penalty ordering buried the CV1 warning (fixed, 25/25 mock). Semantic-view names made unique defensively. Snowflake-only DDL still unexecuted on a live account. |
 
+| 5 | 9 | "The video must show the end-to-end workflow executed via CoCo CLI: Input → Processing → Output, 2–3 modular skills" | Checked the CoCo CLI docs: project skills load from `.cortex/skills/`, are invoked with `$name`, and declare `sql_execute` / `snowflake_sql_execute`. Moved the skills there; made `card-extractor` and `work-order-drafter` executable step by step against Snowflake; added a third skill, `anomaly-triage`; added `snowflake/demo_reset.sql`; rewrote `docs/VIDEO_SCRIPT.md` around the CoCo terminal | The skills previously lived in `coco/skills/`, where CoCo CLI would not load them. The mock extractor missed Hinglish "mat" (= don't) and "aligned"; added them. The row-count check now ignores HN-9xxx demo notes. |
+
 ## Skills
-- `coco/skills/card-extractor/SKILL.md`: extraction rules for knowledge cards (Phase 4)
-- `coco/skills/work-order-drafter/SKILL.md`: drafting rules for work orders (Phase 6)
+CoCo CLI project skills (invoke with `$name`; `$$` lists them):
+- `.cortex/skills/anomaly-triage/SKILL.md`: active anomalies, history match, failure window, cited recall
+- `.cortex/skills/work-order-drafter/SKILL.md`: draft, human approval, close job (drafting rules)
+- `.cortex/skills/card-extractor/SKILL.md`: notes → knowledge cards via Cortex AI_COMPLETE (extraction rules)
