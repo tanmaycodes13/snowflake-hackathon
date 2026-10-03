@@ -64,7 +64,8 @@ snow streamlit deploy --project app --replace
 | `data_gen/` | Seeded synthetic data, golden scenario, `answer_key.json` |
 | `eval/` | 25 golden questions, Plant Brain vs naive baseline |
 | `scripts/` | Runner, deploy, checks, smoke test, packaging |
-| `coco/` | CoCo skills + prompt log |
+| `.cortex/skills/` | CoCo CLI project skills (`$anomaly-triage`, `$work-order-drafter`, `$card-extractor`) |
+| `coco/` | Prompt log: how CoCo was used |
 | `docs/` | Pitch, data model, evaluation |
 
 ## Snowflake features used (exact objects)

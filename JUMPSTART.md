@@ -15,7 +15,8 @@ plant-brain/
 ├── data_gen/            ← seeded synthetic data + golden scenario + answer key
 ├── eval/                ← 25 golden questions + Plant Brain vs naive baseline
 ├── scripts/             ← sf.py runner, deploy, checks, smoke test, packaging, semantic-view renderer
-├── coco/                ← CoCo skills (card-extractor, work-order-drafter) + PROMPTS.md log
+├── .cortex/skills/      ← CoCo CLI project skills: anomaly-triage, work-order-drafter, card-extractor
+├── coco/                ← PROMPTS.md: how CoCo was used, phase by phase
 └── docs/                ← pitch, data model, evaluation
 ```
 
